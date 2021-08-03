@@ -33,4 +33,7 @@ body{
     #contenedor{
         display: none;
     }
+    #lienzo{
+        height: 100vh;    
+    }
 }
