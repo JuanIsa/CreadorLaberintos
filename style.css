@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+h1{
+    margin-top: 20px;
+}
+#textoBoton{
+    font-size: 40px;
+    margin:5px auto;
+}
+#textoBoton input{
+    width:500px ;
+    margin-left: 50px;
+}
+#boton{
+    margin: 30px;
+    padding: 10px;
+    font-size: 20px;
+}
+#contenedor{
+    display: flex;
+    justify-content:center;
+}
