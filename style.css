@@ -8,15 +8,18 @@ h1{
 #textoBoton{
     font-size: 40px;
     margin:5px auto;
+    user-select: none;
 }
 #textoBoton input{
     width:500px ;
     margin-left: 50px;
+    user-select: none;
 }
 #boton{
     margin: 30px;
     padding: 10px;
     font-size: 20px;
+    user-select: none;
 }
 #contenedor{
     display: flex;

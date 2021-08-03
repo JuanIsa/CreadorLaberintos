@@ -10,8 +10,6 @@ boton.addEventListener("click", start);
 const lienzo=document.getElementById("lienzo");
 const ctx=lienzo.getContext("2d");
 
-
-
 start(); // Inicio la página con las condiciones inciales, en dificultad mínima
 function start(){
     /*=======================BLOQUE DE VARIABLES GLOBALES(sin asignación de modificador)====================== */
@@ -88,8 +86,11 @@ function start(){
             }    
             celdas.push(filas_int);    
         }
-        //La primera celda visitada va a ser la del origen de coordenadas
-        const primera=celdas[0][0];
+        //La primera celda visitada será random asi genero las ramificaciones 
+        let aux=[];
+        aux[0]=Math.trunc(Math.random() * filas,0);
+        aux[1]=Math.trunc(Math.random() * columnas,0);
+        const primera=celdas[aux[0]][aux[1]];
         primera.visitada=true;
         stack.push(primera);  
     }
@@ -99,7 +100,7 @@ function start(){
             let actual = stack[stack.length - 1];        
             let validador = false; //Variable que controla el ingreso al aumento del stack       
             let checks = 0; //Cantidad de iteraciones posibles ante la falla de la dirección random
-            while (!validador && checks < 30) { 
+            while (!validador && checks < 50) { 
                 checks++;
                 let direccion = Math.round(Math.random() * 3)    
                 switch (direccion) {        
@@ -179,7 +180,7 @@ function start(){
         ctx.lineTo(anchoLinea/2,anchoLinea/2);
         ctx.stroke();
         ctx.closePath();    
-        ctx.clearRect(0,anchoLinea,anchoLinea,tamañoCelda-anchoLinea);
+        ctx.clearRect(0,anchoLinea,anchoLinea*1.1,tamañoCelda-anchoLinea);
         ctx.clearRect(ancho-anchoLinea*1.1,alto-tamañoCelda,anchoLinea*2,tamañoCelda);
         //"Personaje" de inicio de posición en el origen de coordenadas
         ctx.beginPath();
@@ -252,4 +253,63 @@ document.addEventListener("keydown", function(e){
             }
         break;
     }       
+});
+let x_inicial=0;
+let y_inicial=0;
+let x_final=0;
+let y_final=0;
+lienzo.addEventListener("touchstart", function(e){
+    x_inicial = e.changedTouches[0].pageX;
+    y_inicial = e.changedTouches[0].pageY;
+    x_inicial=Math.trunc(x_inicial,0);
+    y_inicial=Math.trunc(y_inicial,0);
+}); 
+
+lienzo.addEventListener("touchend", function(e){
+    x_final = e.changedTouches[0].pageX;
+    y_final = e.changedTouches[0].pageY;
+    x_final=Math.trunc(x_final,0);
+    y_final=Math.trunc(y_final,0);
+});
+lienzo.addEventListener("touchend", function(){
+    let aux=[];
+    aux[0]=x_final-x_inicial;
+    aux[1]=y_final-y_inicial;
+    aux[2]=Math.abs(aux[0]);
+    aux[3]=Math.abs(aux[1]);
+    if (aux[2]>aux[3]){
+        if (aux[0]>0){
+            if(actualPersonaje.x<ancho && actualPersonaje.derecha==false){
+                desp_x+=1;
+                actualPersonaje=celdas[desp_y][desp_x];
+                ctx.fillRect(actualPersonaje.x*tamañoCelda +anchoLinea*2, actualPersonaje.y*tamañoCelda+anchoLinea*2,tamañoCelda*0.8, tamañoCelda*0.8);
+                ctx.clearRect((actualPersonaje.x-1)*tamañoCelda +anchoLinea*2, actualPersonaje.y*tamañoCelda+anchoLinea*2,tamañoCelda*0.8, tamañoCelda*0.8);               
+            }else if (actualPersonaje.x+1==columnas && actualPersonaje.y+1==filas){ 
+                alert("Ganaste");
+            }
+        }else{
+            if(actualPersonaje.x>0 && actualPersonaje.izquierda==false){
+                desp_x-=1;
+                actualPersonaje=celdas[desp_y][desp_x];
+                ctx.fillRect(actualPersonaje.x*tamañoCelda +anchoLinea*2, actualPersonaje.y*tamañoCelda+anchoLinea*2,tamañoCelda*0.8, tamañoCelda*0.8);
+                ctx.clearRect((actualPersonaje.x+1)*tamañoCelda +anchoLinea*2, actualPersonaje.y*tamañoCelda+anchoLinea*2,tamañoCelda*0.8, tamañoCelda*0.8);               
+            }
+        }
+    }else{
+        if (aux[1]>0){
+            if(actualPersonaje.y<alto && actualPersonaje.abajo==false){
+                desp_y+=1;
+                actualPersonaje=celdas[desp_y][desp_x];
+                ctx.fillRect(actualPersonaje.x*tamañoCelda +anchoLinea*2, actualPersonaje.y*tamañoCelda+anchoLinea*2,tamañoCelda*0.8, tamañoCelda*0.8);
+                ctx.clearRect(actualPersonaje.x*tamañoCelda +anchoLinea*2, (actualPersonaje.y-1)*tamañoCelda+anchoLinea*2,tamañoCelda*0.8, tamañoCelda*0.8);               
+            }
+         }else{
+            if(actualPersonaje.y>0 && actualPersonaje.arriba==false){
+                desp_y-=1;
+                actualPersonaje=celdas[desp_y][desp_x];
+                ctx.fillRect(actualPersonaje.x*tamañoCelda +anchoLinea*2, actualPersonaje.y*tamañoCelda+anchoLinea*2,tamañoCelda*0.8, tamañoCelda*0.8);
+                ctx.clearRect(actualPersonaje.x*tamañoCelda +anchoLinea*2, (actualPersonaje.y+1)*tamañoCelda+anchoLinea*2,tamañoCelda*0.8, tamañoCelda*0.8);               
+            }
+    }
+    }
 }); 
