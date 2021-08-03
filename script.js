@@ -264,7 +264,7 @@ lienzo.addEventListener("touchstart", function(e){
     x_inicial=Math.trunc(x_inicial,0);
     y_inicial=Math.trunc(y_inicial,0);
 }); 
-
+//touchstart, touchend,touchcancel,touchcancel,touchmove
 lienzo.addEventListener("touchend", function(e){
     x_final = e.changedTouches[0].pageX;
     y_final = e.changedTouches[0].pageY;
