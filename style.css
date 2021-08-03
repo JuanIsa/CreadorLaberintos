@@ -2,7 +2,9 @@
     margin: 0;
     padding: 0;
 }
-
+body{
+    overscroll-behavior: contain;
+}
 #contenedor{
     display: flex;
     margin-top: 10px;
