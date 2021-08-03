@@ -9,7 +9,7 @@ boton.addEventListener("click", start);
 //Selecciono e instancio el canvas
 const lienzo=document.getElementById("lienzo");
 const ctx=lienzo.getContext("2d");
-
+window.scrollTo(0, 1); 
 start(); // Inicio la página con las condiciones inciales, en dificultad mínima
 function start(){
     /*=======================BLOQUE DE VARIABLES GLOBALES(sin asignación de modificador)====================== */

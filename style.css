@@ -30,10 +30,10 @@ body{
     margin: 10px;
 }
 @media all and (orientation:landscape) {
-    #contenedor{
+    /* #contenedor{
         display: none;
-    }
-    #lienzo{
+    } */
+    /* #lienzo{
         height: 100vh;    
-    }
+    } */
 }
