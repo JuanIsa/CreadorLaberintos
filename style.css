@@ -29,3 +29,8 @@ body{
 #lienzo{
     margin: 10px;
 }
+@media all and (orientation:portrait) {
+    #contenedor{
+        display: none;
+    }
+}
